@@ -1,6 +1,10 @@
 # Speaker Count Estimation using Deep Neural Networks
 
+<img width="400" align="right" alt="screen shot 2017-11-21 at 12 35 28" src="https://user-images.githubusercontent.com/72940/33071669-be6c35b2-cebc-11e7-8822-9b998ad1ea09.png">
+
 Estimating the number of concurrent speakers from single channel mixtures is a very challenging task that is a mandatory ﬁrst step to address any realistic “cocktail-party” scenario. It has various audio-based applications such as blind source separation, speaker diarisation, and audio surveillance. Building upon powerful machine learning methodology and the possibility to generate large amounts of learning data, Deep Neural Network (DNN) architectures are well suited to directly estimate speaker counts.
+
+## Model
 
 In this work a recurrent neural network was trained to generate speaker count estimates for 0 to 10 speakers. The model uses three BiLSTM layers based on a model proposed for singing voice separation by [Leglaive](https://perso.telecom-paristech.fr/leglaive/documents/presentationICASSP15.pdf) 
 
