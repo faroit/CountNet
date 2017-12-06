@@ -6,7 +6,7 @@ Estimating the number of concurrent speakers from single channel mixtures is a v
 
 ## Model
 
-<img width="400" alt="screen shot 2017-11-21 at 12 35 28" src="https://user-images.githubusercontent.com/72940/33072095-60d1929c-cebe-11e7-91de-1dff3fc50bde.png">
+<img width="360" align="right"  alt="screen shot 2017-11-21 at 12 35 28" src="https://user-images.githubusercontent.com/72940/33072095-60d1929c-cebe-11e7-91de-1dff3fc50bde.png">
 
 In this work a recurrent neural network was trained to generate speaker count estimates for 0 to 10 speakers. The model uses three Bi-LSTM layers inspired by a model for singing voice separation by [Leglaive15](https://hal.archives-ouvertes.fr/hal-01110035).
 
