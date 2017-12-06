@@ -35,21 +35,29 @@ if __name__ == '__main__':
 
     # compute audio
     audio, rate = sf.read(args.audio, always_2d=True)
+
     # downmix to mono
     audio = np.mean(audio, axis=1)
+
     # max normalise output
     audio /= np.max(audio, axis=0)
+
     # compute STFT
     X = np.abs(librosa.stft(audio, n_fft=400, hop_length=160)).T
+
     # apply standardization
     X = scaler.transform(X)
+
     # cut to input shape length (500 frames x 201 STFT bins)
     X = X[:model.input_shape[1], :]
+
     # apply normalization
     Theta = np.linalg.norm(X, axis=1) + eps
     X /= np.mean(Theta)
+
     # add sample dimension
     Xs = X[np.newaxis, ...]
+
     # predict output
     ys = model.predict(Xs, verbose=0)
     print("Speaker Count Estimate: ", np.argmax(ys, axis=1)[0])
