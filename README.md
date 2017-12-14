@@ -4,6 +4,16 @@
 
 Estimating the number of concurrent speakers from single channel mixtures is a very challenging task that is a mandatory ﬁrst step to address any realistic “cocktail-party” scenario. It has various audio-based applications such as blind source separation, speaker diarisation, and audio surveillance. Building upon powerful machine learning methodology and the possibility to generate large amounts of learning data, Deep Neural Network (DNN) architectures are well suited to directly estimate speaker counts.
 
+## Publication
+
+#### Submission for ICASSP 2018
+
+* __Title__: Classification vs. Regression in Supervised Learning for Single Channel
+ Speaker Count Estimation
+* __Authors__: Fabian-Robert Stöter, Soumitro Chakrabarty, Bernd Edler, Emanuël
+ A. P. Habets
+* __Preprint__: [arXiv 1712.04555](http://arxiv.org/abs/1712.04555)
+
 ## Model
 
 <img width="360" align="right"  alt="screen shot 2017-11-21 at 12 35 28" src="https://user-images.githubusercontent.com/72940/33072095-60d1929c-cebe-11e7-91de-1dff3fc50bde.png">
