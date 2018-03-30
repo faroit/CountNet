@@ -6,7 +6,7 @@ Estimating the number of concurrent speakers from single channel mixtures is a v
 
 ## Publication
 
-#### Submission for ICASSP 2018
+#### Accepted for ICASSP 2018
 
 * __Title__: Classification vs. Regression in Supervised Learning for Single Channel
  Speaker Count Estimation
