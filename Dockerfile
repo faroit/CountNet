@@ -6,5 +6,7 @@ RUN apt-get update && \
 ADD . /app
 WORKDIR /app
 
+VOLUME /data
+
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
