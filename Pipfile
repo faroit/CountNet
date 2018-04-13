@@ -1,0 +1,40 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+audioread = "==2.1.5"
+bleach = "==1.5.0"
+decorator = "==4.1.2"
+"enum34" = "==1.1.6"
+"h5py" = "==2.7.1"
+"html5lib" = "==0.9999999"
+joblib = "==0.11"
+keras = "==2.1.1"
+librosa = "==0.5.1"
+llvmlite = "==0.20.0"
+markdown = "==2.6.9"
+numba = "==0.35.0"
+numpy = "==1.13.3"
+protobuf = "==3.5.0.post1"
+pyyaml = "==3.12"
+resampy = "==0.2.0"
+scikit-learn = "==0.19.1"
+scipy = "==1.0.0"
+sklearn = "==0.0"
+soundfile = "==0.9.0.post1"
+tensorflow = "==1.4.0"
+werkzeug = "==0.12.2"
+
+
+[dev-packages]
+
+
+
+[requires]
+
+python_version = "3.6"
