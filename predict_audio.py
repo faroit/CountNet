@@ -39,9 +39,6 @@ if __name__ == '__main__':
     # downmix to mono
     audio = np.mean(audio, axis=1)
 
-    # max normalise output
-    audio /= np.max(audio, axis=0)
-
     # compute STFT
     X = np.abs(librosa.stft(audio, n_fft=400, hop_length=160)).T
 
