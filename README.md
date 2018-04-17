@@ -69,7 +69,8 @@ In the following example a speaker count of 3 speakers is the ground truth.
 [
 	{
 		"sex": "F", 
-		"activity": [[0, 51076], [51396, 55400], [56681, 80000]], "speaker_id": 1221
+		"activity": [[0, 51076], [51396, 55400], [56681, 80000]], 
+		"speaker_id": 1221
 	}, 
 	{
 		"sex": "F", 
@@ -78,7 +79,8 @@ In the following example a speaker count of 3 speakers is the ground truth.
 	}, 
 	{
 		"sex": "M", 
-		"activity": [[0, 15681], [16161, 68213], [73498, 80000]], "speaker_id": 5105
+		"activity": [[0, 15681], [16161, 68213], [73498, 80000]], 
+		"speaker_id": 5105
 	}
 ]
 ```
