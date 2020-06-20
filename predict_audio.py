@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     # load model
     model = keras.models.load_model(
-        os.path.join('models', 'F-CRNN.h5')
+        os.path.join('models', 'CRNN.h5')
     )
 
     # print model configuration
