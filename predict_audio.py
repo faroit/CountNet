@@ -12,21 +12,27 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Load keras model and predict speaker count'
     )
+
     parser.add_argument(
         'audio',
         help='audio file (16 kHz) of 5 seconds duration'
+    )
+
+    parser.add_argument(
+        '--model', default='RNN',
+        help='model name'
     )
 
     args = parser.parse_args()
 
     # load model
     model = keras.models.load_model(
-        os.path.join('models', 'RNN_keras2.h5')
+        os.path.join('models', args.model + '.h5')
     )
 
     # print model configuration
     model.summary()
-
+    # save as svg file
     # load standardisation parameters
     scaler = sklearn.preprocessing.StandardScaler()
     with np.load(os.path.join("models", 'scaler.npz')) as data:
@@ -46,13 +52,14 @@ if __name__ == '__main__':
     X = scaler.transform(X)
 
     # cut to input shape length (500 frames x 201 STFT bins)
-    X = X[:model.input_shape[1], :]
+    X = X[:model.input_shape[-2], :]
 
     # apply normalization
     Theta = np.linalg.norm(X, axis=1) + eps
     X /= np.mean(Theta)
 
     # add sample dimension
+    X = X.reshape(model.input_shape[1:])
     Xs = X[np.newaxis, ...]
 
     # predict output
