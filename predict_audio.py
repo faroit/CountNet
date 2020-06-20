@@ -12,16 +12,22 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Load keras model and predict speaker count'
     )
+
     parser.add_argument(
         'audio',
         help='audio file (16 kHz) of 5 seconds duration'
+    )
+
+    parser.add_argument(
+        '--model', default='RNN',
+        help='model name'
     )
 
     args = parser.parse_args()
 
     # load model
     model = keras.models.load_model(
-        os.path.join('models', 'CRNN.h5')
+        os.path.join('models', args.model + '.h5')
     )
 
     # print model configuration
