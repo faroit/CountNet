@@ -21,12 +21,12 @@ if __name__ == '__main__':
 
     # load model
     model = keras.models.load_model(
-        os.path.join('models', 'RNN_keras2.h5')
+        os.path.join('models', 'F-CRNN.h5')
     )
 
     # print model configuration
     model.summary()
-
+    # save as svg file
     # load standardisation parameters
     scaler = sklearn.preprocessing.StandardScaler()
     with np.load(os.path.join("models", 'scaler.npz')) as data:
@@ -46,13 +46,14 @@ if __name__ == '__main__':
     X = scaler.transform(X)
 
     # cut to input shape length (500 frames x 201 STFT bins)
-    X = X[:model.input_shape[1], :]
+    X = X[:model.input_shape[-2], :]
 
     # apply normalization
     Theta = np.linalg.norm(X, axis=1) + eps
     X /= np.mean(Theta)
 
     # add sample dimension
+    X = X.reshape(model.input_shape[1:])
     Xs = X[np.newaxis, ...]
 
     # predict output
