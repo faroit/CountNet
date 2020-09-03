@@ -1,0 +1,8 @@
+audioread
+h5py
+keras<2.4
+librosa
+numpy<2
+scikit-learn<0.23
+sklearn==0.0
+tensorflow<2
