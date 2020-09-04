@@ -1,5 +1,4 @@
 import numpy as np
-import soundfile as sf
 import argparse
 import os
 import keras
@@ -17,6 +16,25 @@ def class_mae(y_true, y_pred):
             K.argmax(y_pred, axis=-1) - K.argmax(y_true, axis=-1)
         ),
         axis=-1
+    )
+
+
+def load_scaler():
+    scaler = sklearn.preprocessing.StandardScaler()
+    with np.load(os.path.join("models", 'scaler.npz')) as data:
+        scaler.mean_ = data['arr_0']
+        scaler.scale_ = data['arr_1']
+    return scaler
+
+
+def load_model(model_name):
+    path = os.path.join('models', model_name + '.h5')
+    return keras.models.load_model(
+        path,
+        custom_objects={
+            'class_mae': class_mae,
+            'exp': K.exp
+        }
     )
 
 
@@ -51,7 +69,8 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'audio',
-        help='audio file (samplerate 16 kHz) of 5 seconds duration'
+        help='audio file (samplerate 16 kHz) of 5 seconds duration',
+        nargs='+',
     )
 
     parser.add_argument(
@@ -59,30 +78,22 @@ if __name__ == '__main__':
         help='model name'
     )
 
+    parser.add_argument('--print-summary', action='store_true')
+
     args = parser.parse_args()
 
     # load model
-    model = keras.models.load_model(
-        os.path.join('models', args.model + '.h5'),
-        custom_objects={
-            'class_mae': class_mae,
-            'exp': K.exp
-        }
-    )
+    model = load_model(args.model)
 
-    # print model configuration
-    model.summary()
-    # save as svg file
+    if args.print_summary:
+        # print model configuration
+        model.summary()
+
     # load standardisation parameters
-    scaler = sklearn.preprocessing.StandardScaler()
-    with np.load(os.path.join("models", 'scaler.npz')) as data:
-        scaler.mean_ = data['arr_0']
-        scaler.scale_ = data['arr_1']
+    scaler = load_scaler()
 
-    # compute audio
-    audio, rate = sf.read(args.audio, always_2d=True)
-
-    # downmix to mono
-    audio = np.mean(audio, axis=1)
-    estimate = count(audio, model, scaler)
-    print("Speaker Count Estimate: ", estimate)
+    for f in args.audio:
+        # compute audio
+        audio = librosa.load(f, sr=16000)[0]
+        estimate = count(audio, model, scaler)
+        print("Speaker Count Estimate:", f, estimate)

@@ -39,7 +39,8 @@ This repository provides the [keras](https://keras.io/) model to be used from Py
 [Docker](https://www.docker.com/) makes it easy to reproduce the results and install all requirements. If you have docker installed, run the following steps to predict a count from the provided test sample.
 
 * Build the docker image: `docker build -t countnet .`
-* Predict from example: `docker run -i countnet python predict.py --model CRNN examples/5_speakers.wav`
+* Run like this: `docker run -it countnet python predict.py ...` (see usage details below)
+* Mount your data into the container: `docker run -v /path/to/your/data:/data -it countnet python predict.py ... /data/your_audio.wav`
 
 ### Manual Installation 
 
@@ -49,7 +50,46 @@ To install the requirements using Anaconda Python, run
 
 You can now run the command line script and process wav files using the pre-trained model `CRNN` (best peformance).
 
-`python predict.py examples/5_speakers.wav --model CRNN`
+```
+python predict.py --model CRNN examples/5_speakers.wav
+# => Speaker Count Estimate: examples/5_speakers.wav 5
+```
+
+You can also pass multiple files at once.
+
+```
+python predict.py --model CRNN examples/5_speakers.wav examples/5_speakers.wav
+# => Speaker Count Estimate: examples/5_speakers.wav 5
+# => Speaker Count Estimate: examples/5_speakers.wav 5
+```
+
+There is also a simple JSON API to send audio data to (not production ready; only for development!). To run the server:
+
+```
+python predict_api.py --model CRNN
+
+# With Docker:
+docker run -p5000:5000 -it countnet python predict_api.py --model CRNN
+```
+
+The server expects a JSON list of base64 encoded arrays of 16 kHz, float32 audio arrays. It returns a JSON list of integers. If estimation failed for any of the arrays, its result is set to `null` instead.
+
+```py
+import base64
+import requests
+import librosa
+
+audio_data1 = librosa.core.load("/path/to/5_speakers.wav", sr=16000, dtype="float32")[0]
+response = requests.post(
+    "http://localhost:5000",
+    json=[
+        base64.b64encode(audio_data1.tobytes())
+    ]
+)
+print(response.json())
+# => [5]
+```
+
 
 ## Reproduce Paper Results using the LibriCount Dataset
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1216072.svg)](https://doi.org/10.5281/zenodo.1216072)
